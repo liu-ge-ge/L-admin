@@ -1,9 +1,9 @@
 export type Login = {
-  data: boolean
-  access_token: string
+	data: boolean
+	access_token: string
 }
 
 export type UserLogin = {
-  username: string
-  password: string
+	username: string
+	password: string
 }

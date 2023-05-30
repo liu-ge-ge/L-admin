@@ -13,13 +13,13 @@ import hljs from 'highlight.js'
 import js from 'highlight.js/lib/languages/javascript'
 hljs.registerLanguage('javascript', js)
 VMdEditor.use(githubTheme, {
-  Hljs: hljs,
+	Hljs: hljs,
 })
 
 const app = createApp(App)
 // antdvue icon注册
 Object.keys(antIcons).forEach((key) => {
-  app.component(key, antIcons[key as keyof typeof antIcons])
+	app.component(key, antIcons[key as keyof typeof antIcons])
 })
 
 app.use(pinia).use(router).use(i18n).use(VMdEditor).mount('#app')

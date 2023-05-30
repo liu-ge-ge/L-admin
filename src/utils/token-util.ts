@@ -9,11 +9,11 @@ import { TOKEN_STORE_NAME } from '@/config/setting'
  */
 
 export function getToken(): string | null {
-  const token = localStorage.getItem(TOKEN_STORE_NAME)
-  if (!token) {
-    return sessionStorage.getItem(TOKEN_STORE_NAME)
-  }
-  return token
+	const token = localStorage.getItem(TOKEN_STORE_NAME)
+	if (!token) {
+		return sessionStorage.getItem(TOKEN_STORE_NAME)
+	}
+	return token
 }
 
 /**
@@ -23,14 +23,14 @@ export function getToken(): string | null {
  */
 
 export function setToken(token?: string, remember?: boolean) {
-  removeToken()
-  if (token) {
-    if (remember) {
-      localStorage.setItem(TOKEN_STORE_NAME, token)
-    } else {
-      sessionStorage.setItem(TOKEN_STORE_NAME, token)
-    }
-  }
+	removeToken()
+	if (token) {
+		if (remember) {
+			localStorage.setItem(TOKEN_STORE_NAME, token)
+		} else {
+			sessionStorage.setItem(TOKEN_STORE_NAME, token)
+		}
+	}
 }
 
 /**
@@ -38,6 +38,6 @@ export function setToken(token?: string, remember?: boolean) {
  */
 
 export function removeToken() {
-  localStorage.removeItem(TOKEN_STORE_NAME)
-  sessionStorage.removeItem(TOKEN_STORE_NAME)
+	localStorage.removeItem(TOKEN_STORE_NAME)
+	sessionStorage.removeItem(TOKEN_STORE_NAME)
 }
