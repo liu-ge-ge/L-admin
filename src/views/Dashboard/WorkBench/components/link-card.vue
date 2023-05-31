@@ -48,7 +48,7 @@ const blockList = [
 	{
 		icon: 'fund-two-tone',
 		title: '可视化展示数据',
-		url: '/user/message',
+		url: '/visualization',
 		color: '#5cdbd3v',
 	},
 ]

@@ -2,9 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { viteMockServe } from 'vite-plugin-mock'
-// eslint-disable-next-line import/no-unresolved
 import Components from 'unplugin-vue-components/vite'
-// eslint-disable-next-line import/no-unresolved
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import eslintPlugin from 'vite-plugin-eslint'
 // https://vitejs.dev/config/

@@ -188,6 +188,7 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/:pathMatch(.*)',
 		name: 'notfund',
 		beforeEnter: (to, _, next) => {
+			console.log(to, 'tooo')
 			next({
 				path: to.fullPath,
 			})
@@ -218,50 +219,52 @@ router.beforeEach(async (to, from, next) => {
 
 	if (!getToken() && to.name !== 'login') {
 		console.log('没有登录')
-		return {
+		next({
 			path: '/login',
-		}
+		})
 	} else if (getToken() && to.name == 'login') {
 		console.log('登录状态下', from.fullPath)
-		return {
-			path: from.fullPath,
-			replace: true,
-		}
-	}
-
-	// 注册动态路由
-	const userStore = useUserStore()
-	if (!userStore.routeList.length) {
-		console.log('注册动态路由')
-		await userStore.userInfo()
-		router.addRoute(userStore.routeList[0])
 		next({
-			...to,
+			path: from.fullPath,
 			replace: true,
 		})
 	} else {
-		console.log('已经有路由了')
-
-		// 收集tags
-		const obj = {
-			title: to.meta.title,
-			name: to.name,
-		} as Item
-		HistoryTags.addRoute(obj)
-		if (to.matched.length === 0) {
+		// 注册动态路由
+		const userStore = useUserStore()
+		if (!userStore.routeList.length) {
+			console.log('注册动态路由', to)
+			await userStore.userInfo()
+			router.addRoute(userStore.routeList[0])
 			next({
-				name: '404',
+				path: to.path,
+				replace: true,
 			})
 		} else {
-			next()
+			console.log('已经有路由了')
+
+			// 收集tags
+			const obj = {
+				title: to.meta.title,
+				name: to.name,
+			} as Item
+			HistoryTags.addRoute(obj)
+			if (to.matched.length === 0) {
+				next({
+					name: '404',
+				})
+			} else {
+				next()
+			}
 		}
 	}
+
 	// console.log('哈哈', to.matched)
 	// if (to.matched.length == 0) {
 	//   return {
 	//     path: '/exception/404',
 	//   }
 	// }
+	return
 })
 
 router.afterEach(() => {

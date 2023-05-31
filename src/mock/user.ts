@@ -80,18 +80,6 @@ export default [
 							},
 						},
 						{
-							path: 'dashboard/visualization',
-							name: 'visualization',
-							component: '../views/Dashboard/Visualization/index.vue',
-							meta: {
-								icon: 'BulbOutlined',
-								permission: 'visualization',
-								parent: '00',
-								title: '可视化面板',
-								id: '02',
-							},
-						},
-						{
 							path: '/user',
 							name: 'user',
 							redirect: {
@@ -260,6 +248,18 @@ export default [
 								id: '41',
 							},
 							component: '../views/System/RoleManage/index.vue',
+						},
+						{
+							path: '/visualization',
+							name: 'visualization',
+							component: '../views/Visualization/index.vue',
+							meta: {
+								icon: 'BulbOutlined',
+								permission: 'visualization',
+								parent: -1,
+								title: '可视化面板',
+								id: '01',
+							},
 						},
 					],
 				},

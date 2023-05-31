@@ -171,3 +171,11 @@ export function divTOimage(el, callback) {
 		callback(a)
 	}
 }
+
+export function bigToW(number) {
+	if (number >= 10000) {
+		return number / 10000 + '万'
+	} else {
+		return number
+	}
+}

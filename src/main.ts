@@ -11,6 +11,8 @@ import '@kangc/v-md-editor/lib/theme/style/github.css'
 // highlightjs
 import hljs from 'highlight.js'
 import js from 'highlight.js/lib/languages/javascript'
+import 'echarts-wordcloud'
+
 hljs.registerLanguage('javascript', js)
 VMdEditor.use(githubTheme, {
 	Hljs: hljs,

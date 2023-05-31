@@ -19,20 +19,32 @@
 				mode="inline"
 				:theme="sidebarTheme"
 			>
-				<a-sub-menu v-for="item in routes" :key="item.name">
-					<template #icon>
-						<component :is="item.meta?.icon" />
-					</template>
-					<template #title>{{ item.meta?.title || item.name }}</template>
+				<template v-for="item in routes" :key="item.name">
+					<a-sub-menu v-show="item.children?.length">
+						<template #icon>
+							<component :is="item.meta?.icon" />
+						</template>
+						<template #title>{{ item.meta?.title || item.name }}</template>
+						<a-menu-item
+							v-for="children in item.children"
+							:key="children.name"
+							@click="menuItemClick(children)"
+						>
+							<component :is="children.meta?.icon" />
+							{{ children.meta?.title }}
+						</a-menu-item>
+					</a-sub-menu>
 					<a-menu-item
-						v-for="children in item.children"
-						:key="children.name"
-						@click="menuItemClick(children)"
+						v-if="!item.children?.length"
+						key="13d"
+						@click="router.push({ path: item.path })"
 					>
-						<component :is="children.meta?.icon" />
-						{{ children.meta?.title }}
+						<template #icon>
+							<PieChartOutlined />
+						</template>
+						<span>{{ item.name }}</span>
 					</a-menu-item>
-				</a-sub-menu>
+				</template>
 			</a-menu>
 		</a-layout-sider>
 		<a-layout class="rightLayout">
@@ -114,6 +126,7 @@ const router = useRouter()
 
 const userStore = useUserStore()
 const { routeList } = storeToRefs(userStore)
+console.log(routeList)
 const home = routeList.value[0].children
 const routes = home ? home[0]['children'] : []
 const route = useRoute()
@@ -127,7 +140,6 @@ const menuItemClick = (children: any) => {
 watch(
 	() => router.currentRoute.value.name,
 	(newVal) => {
-		console.log(newVal, 'newVal')
 		selectedKeys.value = [newVal] as string[]
 	},
 	{
@@ -140,7 +152,7 @@ watch([() => sidebarTheme.value, () => topBarTheme.value], (newValue) => {
 	topBarTheme.value = newValue[1] || '#000'
 })
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .layout {
 	width: 100%;
 	height: 100%;

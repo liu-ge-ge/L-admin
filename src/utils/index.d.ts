@@ -30,3 +30,5 @@ export declare function divTOimage(
 	el: stringl,
 	callback: (a: HTMLElement) => void
 ): void
+
+export declare function bigToW(n: number): string | number

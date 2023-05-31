@@ -1,15 +1,15 @@
 <template>
 	<div class="tags" :style="{ backgroundColor: props.topBarTheme }">
 		<div
-			@click="routePush(item)"
-			class="box"
 			v-for="(item, index) in routeList"
 			:key="item.title"
+			class="boxTag"
 			:style="{
 				backgroundColor:
 					route.meta.title === item.title ? 'var(--ant-primary-3)' : '',
 				color: route.meta.title === item.title ? 'var(--ant-primary-7)' : '',
 			}"
+			@click="routePush(item)"
 		>
 			<div
 				class="round"
@@ -21,8 +21,8 @@
 			{{ item.title }}
 			<close-outlined
 				v-if="route.name === item.name"
-				@click="delTags(index)"
 				style="margin-left: 5px; font-size: 12px"
+				@click="delTags(index)"
 			/>
 		</div>
 	</div>
@@ -58,14 +58,14 @@ const delTags = (index: number) => {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .tags {
 	width: 100%;
 	height: 55px;
 	padding: 0px 20px;
 	display: flex;
 	align-items: center;
-	.box {
+	.boxTag {
 		padding: 0 20px;
 		height: 35px;
 		// background-color: var(--ant-primary-3);

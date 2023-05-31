@@ -6,18 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .number {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #333;
+    }
+
+    .number span {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        transform: translateY(0%);
+    }
+</style>
 <body>
-    <script>
-        let arr = [1, 2, 3, 4, 5]
-        let arrCopy = [...arr]
-        arr.forEach((item, index) => {
-            if (item % 2 === 0) {
-                arr.splice(index, 1)
-            }
-        })
+    <div class="number">
+        <span>0123456879</span>
+    </div>
 
-        console.log(arr, 'arr')
-
-    </script>
 </body>
 </html>
