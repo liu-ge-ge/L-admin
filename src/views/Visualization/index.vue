@@ -224,7 +224,7 @@ let shopData = reactive([
 	},
 ])
 </script>
-<style lang="less">
+<style lang="less" scoped>
 @font-face {
 	font-family: electronicFont;
 	src: url('@/assets/fonts/DS-DIGI-1.ttf');

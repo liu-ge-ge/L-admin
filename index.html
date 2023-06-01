@@ -4,10 +4,82 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + Vue + TS</title>
+  <title>L站后台管理系统</title>
 </head>
+<style>
+  .index-fc {
+    position: absolute;
+    top: 30%;
+    left: 45%;
+  }
+
+  .windmill {
+    position: relative;
+    z-index: 10;
+    width: 200px;
+    height: 200px;
+    animation: circle 2s infinite linear;
+
+  }
+
+  .stick {
+    position: absolute;
+    top: 95px;
+    left: 104.5px;
+    height: 200px;
+    width: 10px;
+    background: royalblue;
+    border-radius: 5px;
+  }
+
+  .triangle {
+    position: absolute;
+    height: 0;
+    border: 50px solid transparent;
+  }
+
+  .triangle.right {
+    border-right-color: red;
+  }
+
+  .triangle.bottom {
+    left: 100px;
+    border-bottom-color: yellow;
+  }
+
+  .triangle.left {
+    top: 100px;
+    left: 100px;
+    border-left-color: coral;
+  }
+
+  .triangle.top {
+    top: 100px;
+    border-top-color: cyan;
+  }
+
+  @keyframes circle {
+    to {
+      transform: rotate(0);
+    }
+
+    from {
+      transform: rotate(360deg);
+    }
+  }
+</style>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <div class="index-fc">
+      <div class="windmill">
+        <div class="triangle right"></div>
+        <div class="triangle bottom"></div>
+        <div class="triangle left"></div>
+        <div class="triangle top"></div>
+      </div>
+      <div class="stick"></div>
+    </div>
+  </div>
   <script type="module" src="/src/main.ts"></script>
   <script>
     window._AMapSecurityConfig = {

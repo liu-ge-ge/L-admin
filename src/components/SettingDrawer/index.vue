@@ -1,11 +1,11 @@
 <template>
 	<more-outlined
-		@click="showDrawer"
 		style="margin-left: 20px; font-size: 20px"
+		@click="showDrawer"
 	/>
 	<a-drawer
-		:closable="false"
 		v-model:visible="visible"
+		:closable="false"
 		class="custom-class"
 		:title="t('setting.systemSetting')"
 		placement="right"
@@ -57,12 +57,12 @@
 			<p style="color: red">{{ t('setting.systemColor') }}</p>
 			<div class="colorList">
 				<div
-					class="block"
-					:style="{ backgroundColor: item }"
 					v-for="item in predefineColors"
 					:key="item"
+					class="block"
+					:style="{ backgroundColor: item }"
 				></div>
-				<color-picker @changeColor="setColor"></color-picker>
+				<color-picker @change-color="setColor"></color-picker>
 			</div>
 		</div>
 		<!-- 暗黑模式 -->

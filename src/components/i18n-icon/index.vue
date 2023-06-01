@@ -2,7 +2,7 @@
 	<a-dropdown class="drop">
 		<global-outlined style="font-size: 20px" />
 		<template #overlay>
-			<a-menu @click="handleClick" :selectedKeys="language">
+			<a-menu :selected-keys="language" @click="handleClick">
 				<a-menu-item key="en">English</a-menu-item>
 				<a-menu-item key="zh">简体中文</a-menu-item>
 			</a-menu>

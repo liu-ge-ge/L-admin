@@ -6,11 +6,11 @@
 				placeholder="请输入搜索关键词"
 				style="width: 40%; border-radius: 20px; height: 40px"
 			></a-input>
-			<div class="searchResult" v-if="keyword">
+			<div v-if="keyword" class="searchResult">
 				<div
-					class="item"
 					v-for="item in poiList?.pois"
 					:key="item.id"
+					class="item"
 					@click="setMapCenter(item)"
 				>
 					<span>{{ item.name }}</span>
@@ -20,7 +20,7 @@
 		</div>
 		<div id="container"></div>
 		<transition name="map">
-			<div class="select" v-if="isShowTheme">
+			<div v-if="isShowTheme" class="select">
 				<a-radio-group v-model:value="themeValue" @change="changeMapTheme">
 					<a-radio :style="radioStyle" value="normal" class="radio"
 						>标准</a-radio
@@ -57,24 +57,24 @@
 		</transition>
 
 		<div
-			@click="changeShowTheme"
 			class="control"
 			:style="{
 				color: isShowTheme
 					? 'var(--ant-primary-color)'
 					: 'var(--ant-text-color)',
 			}"
+			@click="changeShowTheme"
 		>
 			<alert-outlined style="margin-right: 3px" />
 			地图主题
 		</div>
 
 		<div
-			@click="changeMapMode"
 			class="control3D"
 			:style="{
 				color: isShow3D ? 'var(--ant-primary-color)' : 'var(--ant-text-color)',
 			}"
+			@click="changeMapMode"
 		>
 			<codepen-outlined style="margin-right: 3px" />
 			3D

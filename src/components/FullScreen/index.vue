@@ -1,12 +1,12 @@
 <template>
 	<fullscreen-outlined
 		v-if="!fullScreen"
-		@click="onFullscreen"
 		style="font-size: 20px"
+		@click="onFullscreen"
 	/>
 	<fullscreen-exit-outlined
-		style="font-size: 20px"
 		v-else
+		style="font-size: 20px"
 		@click="onFullscreen"
 	/>
 </template>

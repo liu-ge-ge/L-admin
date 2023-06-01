@@ -27,8 +27,8 @@
 			</a-form-item>
 			<a-form-item label="备注" name="comments">
 				<a-textarea
-					:rows="4"
 					v-model:value="formState.comments"
+					:rows="4"
 					:maxlength="200"
 					placeholder="请输入备注"
 				></a-textarea>

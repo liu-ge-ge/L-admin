@@ -3,14 +3,14 @@
 		<div class="left">
 			<slot name="plusTitle"></slot>
 		</div>
-		<div class="right" v-if="props.isShowTools">
+		<div v-if="props.isShowTools" class="right">
 			<a-tooltip placement="topLeft">
 				<template #title>
 					<span>刷新</span>
 				</template>
 				<reload-outlined
-					@click="refresh"
 					style="color: var(--ant-primary-color)"
+					@click="refresh"
 				/>
 			</a-tooltip>
 			<a-tooltip placement="topLeft">
@@ -64,7 +64,7 @@
 			</a-dropdown>
 
 			<transition name="col">
-				<div class="checkBox" v-show="isShowCol">
+				<div v-show="isShowCol" class="checkBox">
 					<div class="top">
 						<a-checkbox
 							v-model:checked="checkAll"
@@ -77,14 +77,14 @@
 					</div>
 					<div class="bottom div-center">
 						<a-checkbox-group
-							@change="checkboxChange"
 							v-model:value="checkedList"
 							style="width: 100%"
+							@change="checkboxChange"
 						>
 							<div
-								class="div-center div-item"
 								v-for="(item, index) in plainOptions"
 								:key="item"
+								class="div-center div-item"
 							>
 								<a-checkbox :value="item">{{ item }}</a-checkbox>
 								<div class="div-center">
@@ -93,7 +93,6 @@
 											<span>固定在左侧</span>
 										</template>
 										<vertical-right-outlined
-											@click="colChangeLR(index, 'left', item)"
 											style="margin-right: 10px"
 											:style="{
 												color:
@@ -101,6 +100,7 @@
 														? 'var(--ant-primary-color)'
 														: '',
 											}"
+											@click="colChangeLR(index, 'left', item)"
 										/>
 									</a-tooltip>
 
@@ -109,13 +109,13 @@
 											<span>固定在右侧</span>
 										</template>
 										<vertical-left-outlined
-											@click="colChangeLR(index, 'right', item)"
 											:style="{
 												color:
 													operate[index] == 'right'
 														? 'var(--ant-primary-color)'
 														: '',
 											}"
+											@click="colChangeLR(index, 'right', item)"
 										/>
 									</a-tooltip>
 								</div>
@@ -128,15 +128,15 @@
 	</div>
 	<a-table
 		:id="id"
+		:key="tableKey"
 		:scroll="{ y: tableHeight }"
 		:data-source="props.dataSource"
 		:columns="columns"
-		:key="tableKey"
 		v-bind="$attrs"
 		:pagination="props.pagination"
 		:size="tableSize"
 	>
-		<template v-for="k in Object.keys($slots)" v-slot:[k]="data" :key="k">
+		<template v-for="k in Object.keys($slots)" #[k]="data" :key="k">
 			<slot :name="k" v-bind="data"></slot>
 		</template>
 	</a-table>

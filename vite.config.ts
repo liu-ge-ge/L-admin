@@ -36,4 +36,18 @@ export default defineConfig({
 			},
 		},
 	},
+	build: {
+		rollupOptions: {
+			output: {
+				manualChunks: function (id) {
+					//将node_modules中的代码单独打包成一个js文件
+					if (id.includes('node_modules')) {
+						return 'vendor'
+					} else if (id.includes('echarts')) {
+						return 'echarts'
+					}
+				},
+			},
+		},
+	},
 })

@@ -6,7 +6,7 @@
 			</template>
 		</a-avatar>
 		<a-dropdown class="drop">
-			<div @click.prevent class="admin">
+			<div class="admin" @click.prevent>
 				{{ t('header.admin') }}
 				<DownOutlined />
 			</div>

@@ -209,9 +209,9 @@ onMounted(() => {
 	let dom = document.getElementById('pie') as HTMLElement
 	let myChart4 = echarts.init(dom)
 	myChart4.setOption(option)
-})
-window.addEventListener('resize', function () {
-	myChart4.resize()
+	window.addEventListener('resize', function () {
+		myChart4.resize()
+	})
 })
 </script>
 <style lang="less">

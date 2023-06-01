@@ -70,12 +70,7 @@ window.addEventListener('resize', function () {
 	border-radius: 10px;
 	top: 0%;
 	left: 0%;
-}
-
-@media screen and (min-width: 992px) {
-	#main {
-		width: 100%;
-		height: 95%;
-	}
+	width: 100%;
+	height: 95%;
 }
 </style>

@@ -7,8 +7,8 @@
 		>
 			<template #plusTitle>
 				<a-button
-					@click="exportExcelFormServe(['name', 'chinese'])"
 					type="primary"
+					@click="exportExcelFormServe(['name', 'chinese'])"
 				>
 					<download-outlined />
 					导出

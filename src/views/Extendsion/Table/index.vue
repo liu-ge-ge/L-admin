@@ -1,7 +1,7 @@
 <template>
 	<a-card>
 		<table-plus
-			:isShowTools="true"
+			:is-show-tools="true"
 			:data-source="data"
 			:columns="columns"
 			:pagination="{ showSizeChanger: true }"
