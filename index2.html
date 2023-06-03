@@ -1,28 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <script src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
 </head>
 <style>
-    .number {
-        width: 20px;
-        height: 20px;
-        border: 1px solid #333;
+    .fu {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        margin-top: 100px;
+        /* border-top: 1px solid red; */
     }
 
-    .number span {
-        writing-mode: vertical-rl;
-        text-orientation: upright;
-        transform: translateY(0%);
+    .fu::before {
+        content: '';
+        display: inline-block;
+    }
+
+    .zi {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        margin-top: 50px;
     }
 </style>
+
 <body>
-    <div class="number">
-        <span>0123456879</span>
+    <div class="fu">
+        <div class="zi"></div>
+    </div>
+    <!-- <div id="header">#header</div>
+
+    <div id="container">
+        <div id="center" class="column">
+            <div class="content">#center</div>
+        </div>
+        <div id="left" class="column">#left</div>
+        <div id="right" class="column">#right</div>
     </div>
 
+    <div id="footer">#footer</div> -->
 </body>
+
 </html>

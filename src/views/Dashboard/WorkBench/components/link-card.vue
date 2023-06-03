@@ -6,7 +6,7 @@
 			:lg="3"
 			:md="6"
 			:sm="12"
-			:span="3"
+			:span="12"
 			style="margin-bottom: 10px"
 		>
 			<a-card :bordered="false" hoverable :body-style="{ padding: 0 }">
@@ -89,6 +89,9 @@ onBeforeMount(() => {
 	.title {
 		color: @system-text-color;
 		text-align: center;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
 </style>

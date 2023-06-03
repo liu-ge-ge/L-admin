@@ -7,7 +7,7 @@
 		</a-avatar>
 		<a-dropdown class="drop">
 			<div class="admin" @click.prevent>
-				{{ t('header.admin') }}
+				<span v-show="isShowName">{{ t('header.admin') }}</span>
 				<DownOutlined />
 			</div>
 			<template #overlay>
@@ -31,14 +31,32 @@
 </template>
 <script setup lang="ts">
 import { removeToken } from '@/utils/token-util'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 const { t } = useI18n()
 const router = useRouter()
+let isShowName = ref(true)
 const signOut = () => {
 	removeToken()
 	router.replace({ path: '/login' })
 }
+
+const resize = () => {
+	if (document.body.clientWidth <= 768) {
+		isShowName.value = false
+	} else {
+		isShowName.value = true
+	}
+}
+
+onMounted(() => {
+	window.addEventListener('resize', resize)
+})
+
+onBeforeUnmount(() => {
+	window.removeEventListener('resize', resize)
+})
 </script>
 <style lang="less" scoped>
 .userInfo {

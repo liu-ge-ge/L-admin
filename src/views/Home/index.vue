@@ -1,50 +1,46 @@
 <template>
 	<a-layout class="layout">
+		<div v-if="isShowT && topLevel" class="masking" @click="handleMask"></div>
 		<a-layout-sider
+			v-show="isShowT"
 			v-model:collapsed="collapsed"
 			:trigger="null"
 			collapsible
 			:theme="sidebarTheme"
+			:class="[topLevel ? 'topLevel' : '']"
 		>
 			<div
 				class="system-name"
 				:style="{ color: sidebarTheme === 'dark' ? '#fff' : '#000' }"
 			>
 				<img src="../../../public/vite.svg" />
-				{{ SYSTEM_NAME }}
+				<span v-if="!collapsed">{{ SYSTEM_NAME }}</span>
 			</div>
 			<a-menu
 				id="menu"
-				v-model:selectedkeys="selectedKeys"
+				v-model:selectedKeys="selectedKeys"
+				v-model:openKeys="openKeys"
 				mode="inline"
 				:theme="sidebarTheme"
 			>
-				<template v-for="item in routes" :key="item.name">
-					<a-sub-menu v-show="item.children?.length">
-						<template #icon>
-							<component :is="item.meta?.icon" />
-						</template>
-						<template #title>{{ item.meta?.title || item.name }}</template>
-						<a-menu-item
-							v-for="children in item.children"
-							:key="children.name"
-							@click="menuItemClick(children)"
-						>
-							<component :is="children.meta?.icon" />
-							{{ children.meta?.title }}
-						</a-menu-item>
-					</a-sub-menu>
+				<a-sub-menu
+					v-for="(item, index) in routes"
+					v-show="item.children?.length"
+					:key="'sub-' + index"
+				>
+					<template #icon>
+						<component :is="item.meta?.icon" />
+					</template>
+					<template #title>{{ item.meta?.title || item.name }}</template>
 					<a-menu-item
-						v-if="!item.children?.length"
-						key="13d"
-						@click="router.push({ path: item.path })"
+						v-for="(children, index2) in item.children"
+						:key="'sub-' + index + '-' + index2"
+						@click="menuItemClick(children)"
 					>
-						<template #icon>
-							<PieChartOutlined />
-						</template>
-						<span>{{ item.name }}</span>
+						<component :is="children.meta?.icon" />
+						{{ children.meta?.title }}
 					</a-menu-item>
-				</template>
+				</a-sub-menu>
 			</a-menu>
 		</a-layout-sider>
 		<a-layout class="rightLayout">
@@ -62,17 +58,18 @@
 						v-if="collapsed"
 						style="font-size: 20px"
 						class="trigger"
-						@click="() => (collapsed = !collapsed)"
+						@click="showT"
 					/>
 					<menu-fold-outlined
 						v-else
 						style="font-size: 20px"
 						class="trigger"
-						@click="() => (collapsed = !collapsed)"
+						@click="showT"
 					/>
 
 					<span
 						v-for="(item, index) in topPageUrl"
+						v-show="!topLevel"
 						:key="item"
 						:style="{
 							color: index === 0 ? '#999' : '',
@@ -105,7 +102,7 @@
 <script setup lang="ts">
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useRouter, useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { SYSTEM_PAGE_FOOTER, SYSTEM_NAME } from '@/config/setting'
 import FullScreen from '../../components/FullScreen/index.vue'
 import I18nIcon from '../../components/i18n-icon/index.vue'
@@ -121,20 +118,32 @@ const store = useGlobalStore()
 const { sidebarTheme, topBarTheme } = storeToRefs(store)
 
 let collapsed = ref(false)
-const selectedKeys = ref<string[]>(['workbench'])
+let selectedKeys = ref<string[]>(['sub-0-0'])
+let openKeys = ref<string[]>(['sub-0'])
 const router = useRouter()
 
 const userStore = useUserStore()
 const { routeList } = storeToRefs(userStore)
-console.log(routeList)
 const home = routeList.value[0].children
 const routes = home ? home[0]['children'] : []
 const route = useRoute()
 const topPageUrl = route.fullPath.split('/').slice(1)
-
+let topLevel = ref(false) //控制遮罩层和侧面面板是否绝对定位
+let isShowT = ref(true) //控制侧面面板是否显示
 const menuItemClick = (children: any) => {
-	selectedKeys.value = [children.name]
 	router.push({ path: children.path })
+}
+
+const showT = () => {
+	collapsed.value = !collapsed.value
+	if (!isShowT.value) {
+		isShowT.value = true
+	}
+}
+
+const handleMask = () => {
+	isShowT.value = false
+	collapsed.value = true
 }
 
 watch(
@@ -151,11 +160,46 @@ watch([() => sidebarTheme.value, () => topBarTheme.value], (newValue) => {
 	sidebarTheme.value = newValue[0] || 'dark'
 	topBarTheme.value = newValue[1] || '#000'
 })
+
+const resize = () => {
+	if (document.body.clientWidth <= 768) {
+		collapsed.value = false
+		topLevel.value = true
+	} else {
+		// collapsed.value = false
+		topLevel.value = false
+		isShowT.value = true
+	}
+}
+
+onMounted(() => {
+	window.addEventListener('resize', resize)
+})
+
+onBeforeUnmount(() => {
+	window.removeEventListener('resize', resize)
+})
 </script>
 <style lang="less" scoped>
 .layout {
 	width: 100%;
 	height: 100%;
+	.topLevel {
+		position: absolute;
+		z-index: 999;
+		top: 0;
+		left: 0;
+		height: 100%;
+	}
+	.masking {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, 0.4);
+		z-index: 99;
+	}
 	.rightLayout {
 		background-color: @system-bg;
 		color: @system-text-color;
